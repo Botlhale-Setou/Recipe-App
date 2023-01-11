@@ -1,6 +1,6 @@
 import "./styles.css";
-const refreshComments = require('./modules/manageComments.js');
-const postComment = require('./modules/manageComments.js');
+const refreshComments = require("./modules/manageComments.js");
+const postComment = require("./modules/manageComments.js");
 
 const searchBtn = document.querySelector(".search-btn");
 const mealList = document.getElementById("meal");
@@ -93,21 +93,49 @@ const displayModal = async (obj) => {
 	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
 	      <button id="commentButton" type="button">Comment</button>`;
 
-  await refreshComments(html, obj.idMeal);
+  setTimeout(() => {
+    refreshComments(html, obj.idMeal);
+  }, 1000);
+  // let username = document.querySelector("#nameInput").value;
+  // let comment = document.getElementById("cp-commentTA");
 
-  let username = document.querySelector('#nameInput').value;
-  let comment = document.getElementById('cp-commentTA');
+  // let post = {
+  //   item_id: obj.idMeal,
+  //   username: username,
+  //   comment: comment.value,
+  // };
 
-  let post = {
-    "item_id": obj.idMeal,
-    "username": username,
-    "comment": comment.value
-  }
+  // await postComment(post);
 
-  await postComment(post);
-  
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
+
+  //commets button post
+  // const sendComment = document.querySelector("#commentButton");
+
+  // sendComment.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   console.log("comment button pressed");
+  //   postComment(post);
+
+  // });
+  // Load comment button behaviour
+  const commentBtnx = document.querySelector("#commentButton");
+  commentBtnx.addEventListener("click", async () => {
+    const nameInput = document.querySelector("#nameInput");
+    const commentTA = document.querySelector("#cp-commentTA");
+
+    await postComment({
+      item_id: obj.idMeal,
+      username: nameInput.value,
+      comment: commentTA.value,
+    });
+
+    nameInput.value = "";
+    commentTA.value = "";
+
+    await refreshComments(html, obj.idMeal);
+  });
 };
 
 //closing modal
