@@ -1,4 +1,6 @@
 import "./styles.css";
+const refreshComments = require('./modules/manageComments.js');
+const postComment = require('./modules/manageComments.js');
 
 const searchBtn = document.querySelector(".search-btn");
 const mealList = document.getElementById("meal");
@@ -63,12 +65,12 @@ mealList.addEventListener("click", async (e) => {
   }
 });
 
-const displayModal = (obj) => {
+const displayModal = async (obj) => {
   console.log(obj);
   obj = obj[0];
   let html = "";
 
-  html = `  <h2 class="recipe-title">${obj.strMeal}</h2>
+  html = `<h2 class="recipe-title">${obj.strMeal}</h2>
         <p class="recipe-category">${obj.strCategory}</p>
         <div class="recipe-instruct">
           <h3>Instruction</h3>
@@ -81,8 +83,29 @@ const displayModal = (obj) => {
         </div>
         <div class="recipe-link">
           <a href="${obj.strYoutube}" target="_blank">Watch video</a>
-        </div>`;
+        </div>
 
+        <div class="commentsDisplay">
+	      </div>
+
+	      <h4 id="addCommTitle">Add comment</h4>
+	      <input id="nameInput" type="text" placeholder="Your name" aria-placeholder="Your name">
+	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
+	      <button id="commentButton" type="button">Comment</button>`;
+
+  await refreshComments(html, obj.idMeal);
+
+  let username = document.querySelector('#nameInput').value;
+  let comment = document.getElementById('cp-commentTA');
+
+  let post = {
+    "item_id": obj.idMeal,
+    "username": username,
+    "comment": comment.value
+  }
+
+  await postComment(post);
+  
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
 };
