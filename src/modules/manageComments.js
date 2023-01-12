@@ -72,16 +72,25 @@ const showComment = async (itemId) => {
     commentShow.innerHTML = "be first to post comment";
     console.log("no comments");
   } else {
-    commDB.forEach((commentObj) => {
-      commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
+    //   commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
+    commentShow.innerHTML = renderComment(commDB);
+  }
+};
+
+const renderComment = (arr) => {
+  let comments = "";
+  if (arr.length !== undefined) {
+    arr.forEach((obj) => {
+      comments += `<p class="single-comment"><span class="comment-date">${obj.creation_date}</span><br><span class="user-name">${obj.username}:</span> <span class="comment-text">${obj.comment}</span></p>`;
     });
   }
-  // await response.json().then((comments) => {
-  //   comments.forEach((commentObj) => {
-  //     commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
-  //   });
-  // });
+  return comments;
 };
+// await response.json().then((comments) => {
+//   comments.forEach((commentObj) => {
+//     commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
+//   });
+// });
 
 module.exports = addComment;
 module.exports = showComment;
