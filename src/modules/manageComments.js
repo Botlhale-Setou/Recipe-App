@@ -1,6 +1,7 @@
 const refreshComments = async (elem, id) => {
   let raw = await getComments(id);
   let commDB = Array.from(raw);
+  console.log(commDB, id);
   const viewer = document.querySelector(".commentsDisplay");
 
   if (commDB.length === 0) {
@@ -27,7 +28,7 @@ const postComment = async (data) => {
   });
 };
 
-const getComments = async (itemID = 0) => {
+const getComments = async (itemID) => {
   const link = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments?item_id=${itemID}`;
 
   const response = await fetch(link);
@@ -37,3 +38,40 @@ const getComments = async (itemID = 0) => {
 };
 
 module.exports = refreshComments;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const addComment = async (itemId, usr, txt) => {
+  await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+        username: usr.value,
+        comment: txt.value,
+      }),
+    }
+  );
+  usr.value = "";
+  txt.value = "";
+  console.log("inside add comment");
+};
+
+const showComment = async (itemId) => {
+  const response = await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments?item_id=${itemId}`
+  );
+  const commentShow = document.querySelector(`.commentsDisplay`);
+  await response.json().then((comments) => {
+    // commentShow.innerHTML = renderComment(comments);
+    comments.forEach((commentObj) => {
+      commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
+    });
+  });
+};
+
+module.exports = addComment;
+module.exports = showComment;

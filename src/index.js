@@ -1,6 +1,10 @@
 import "./styles.css";
+
 const refreshComments = require("./modules/manageComments.js");
 const postComment = require("./modules/manageComments.js");
+const renderComment = require("./modules/manageComments.js");
+const showComment = require("./modules/manageComments.js");
+const addComment = require("./modules/manageComments.js");
 
 const searchBtn = document.querySelector(".search-btn");
 const mealList = document.getElementById("meal");
@@ -15,6 +19,8 @@ const foodBase = "https://www.themealdb.com/api/json/v1/1/";
 const searchUrl = `${foodBase}search.php?s=`;
 const catUrl = `${foodBase}filter.php?c=`;
 const ingUrl = `${foodBase}filter.php?i=`;
+const appId = "No6xjeOV6L9eg8TkvJgU";
+const baseLink = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU`;
 
 const getMealList = async (url, term) => {
   // let searchInputText = document.getElementById("search-input").value.trim();
@@ -93,48 +99,32 @@ const displayModal = async (obj) => {
 	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
 	      <button id="commentButton" type="button">Comment</button>`;
 
-  setTimeout(() => {
-    refreshComments(html, obj.idMeal);
-  }, 1000);
-  // let username = document.querySelector("#nameInput").value;
-  // let comment = document.getElementById("cp-commentTA");
-
-  // let post = {
-  //   item_id: obj.idMeal,
-  //   username: username,
-  //   comment: comment.value,
-  // };
-
-  // await postComment(post);
-
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
 
-  //commets button post
-  // const sendComment = document.querySelector("#commentButton");
+  setTimeout(() => {
+    showComment(obj.idMeal);
+  }, 1000);
 
-  // sendComment.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   console.log("comment button pressed");
-  //   postComment(post);
+  // Load Postcomment button behaviour
+  const submitBtn = document.querySelector("#commentButton");
 
-  // });
-  // Load comment button behaviour
-  const commentBtnx = document.querySelector("#commentButton");
-  commentBtnx.addEventListener("click", async () => {
-    const nameInput = document.querySelector("#nameInput");
-    const commentTA = document.querySelector("#cp-commentTA");
+  const user = document.querySelector("#nameInput");
+  const text = document.querySelector("#cp-commentTA");
 
-    await postComment({
-      item_id: obj.idMeal,
-      username: nameInput.value,
-      comment: commentTA.value,
-    });
-
-    nameInput.value = "";
-    commentTA.value = "";
-
-    await refreshComments(html, obj.idMeal);
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (user.value !== "" && text.value !== "") {
+      addComment(obj.idMeal, user, text);
+      // successMsg(message);
+      setTimeout(() => {
+        showComment(baseLink, obj.idMeal);
+        // showCount(baseLink, cardData.idMeal);
+      }, 1000);
+    } else {
+      // errorMsg(message);
+      console.log("error in submit");
+    }
   });
 };
 
