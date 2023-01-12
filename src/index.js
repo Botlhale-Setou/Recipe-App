@@ -39,6 +39,15 @@ const getMealList = async (url, term) => {
           </div>
           <div class="meal-name">
           <h3>${item.strMeal}</h3>
+          <div class="for-heart">
+
+          <i
+          class="fa-solid fa-heart"
+          id="like-${item.idMeal}"
+          style="cursor: pointer"
+        ></i>
+        <span class="like-count" id="like-count${item.idMeal}">12</span>
+        </div>
           <a href="#" class="recipe-btn" id =" recipebtn-">Comments</a>
           </div>
           </div>`;
@@ -206,4 +215,53 @@ catDessert.addEventListener("click", (e) => {
   catBeef.childNodes[1].style.visibility = "hidden";
   catSeafood.childNodes[1].innerText = "";
   catSeafood.childNodes[1].style.visibility = "hidden";
+});
+
+// like functionality
+
+const itemLike = async (itemId) => {
+  await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+      }),
+    }
+  );
+};
+const likeCount = async (id) => {
+  const likeEntries = await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes`
+  );
+  const mealsItem = document.querySelectorAll(".meal-item");
+
+  await likeEntries.json().then((likeEntry) => {
+    mealsItem.forEach((meal) => {
+      const likeCounter = document.getElementById(`like-count${id}`);
+      likeEntry.forEach((like) => {
+        if (meal.dataset.id === like.item_id) {
+          console.log(like.item_id, like.likes);
+          likeCounter.innerHTML = `${like.likes}`;
+        }
+      });
+    });
+  });
+};
+
+mealList.addEventListener("click", (e) => {
+  console.log(e.target);
+
+  if (e.target.classList.contains("fa-heart")) {
+    let likeid = e.target.id.split("-")[1];
+    itemLike(likeid);
+    setTimeout(() => {
+      likeCount(likeid);
+    }, 1000);
+
+    console.log(likeid);
+  }
 });
