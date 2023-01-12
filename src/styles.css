@@ -317,3 +317,7 @@ body {
     margin: 0;
   }
 }
+
+.like-count {
+  color: red;
+}
