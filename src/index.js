@@ -97,7 +97,7 @@ const displayModal = async (obj) => {
 	      <h4 id="addCommTitle">Add comment</h4>
 	      <input id="nameInput" type="text" placeholder="Your name" aria-placeholder="Your name">
 	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
-	      <button id="commentButton-${obj.idMeal}" type="button">Comment</button>`;
+	      <button id="commentButton-${obj.idMeal}" type="button">Post Comment</button>`;
 
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
