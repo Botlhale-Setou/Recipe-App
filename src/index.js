@@ -120,6 +120,29 @@ const displayModal = async (obj) => {
       let idOfObj = postCommentButton.id.split("-")[1];
       console.log(idOfObj);
       addComment(idOfObj, user, text);
+
+      //Post API directly
+
+      fetch(
+        `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            item_id: idOfObj,
+            username: user.value,
+            comment: text.value,
+          }),
+        }
+      );
+      user.value = "";
+      text.value = "";
+      console.log("inside add comment");
+
+      //end
+
       setTimeout(() => {
         showComment(obj.idMeal);
       }, 1000);
