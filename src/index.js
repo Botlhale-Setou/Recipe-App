@@ -116,13 +116,10 @@ const displayModal = async (obj) => {
     e.preventDefault();
     if (user.value !== "" && text.value !== "") {
       addComment(obj.idMeal, user, text);
-      // successMsg(message);
       setTimeout(() => {
         showComment(obj.idMeal);
-        // showCount(baseLink, cardData.idMeal);
       }, 1000);
     } else {
-      // errorMsg(message);
       console.log("error in submit");
     }
   });

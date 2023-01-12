@@ -65,11 +65,22 @@ const showComment = async (itemId) => {
     `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments?item_id=${itemId}`
   );
   const commentShow = document.querySelector(`.commentsDisplay`);
-  await response.json().then((comments) => {
-    comments.forEach((commentObj) => {
+  const data = await response.json();
+  let commDB = Array.from(data);
+  console.log(commDB);
+  if (commDB.length === 0) {
+    commentShow.innerHTML = "be first to post comment";
+    console.log("no comments");
+  } else {
+    commDB.forEach((commentObj) => {
       commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
     });
-  });
+  }
+  // await response.json().then((comments) => {
+  //   comments.forEach((commentObj) => {
+  //     commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
+  //   });
+  // });
 };
 
 module.exports = addComment;
