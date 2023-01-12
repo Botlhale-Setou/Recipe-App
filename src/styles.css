@@ -50,6 +50,10 @@ body {
   gap: 16px;
 }
 
+.site-title {
+  text-shadow: 2px 2px orange;
+}
+
 .logo {
   width: 50px;
   height: 50px;
@@ -81,10 +85,19 @@ body {
   height: auto !important;
 }
 
+.nav-link {
+  text-decoration: bold;
+}
+
 .main-menu,
 .nav-item .nav-link {
   padding: 10px;
   text-decoration: none;
+}
+.nav-link {
+  text-shadow: 1px 1px orange;
+  color: black;
+  font-weight: 500;
 }
 
 .meal-count {
