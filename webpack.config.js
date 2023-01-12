@@ -11,9 +11,6 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  optimization: {
-    runtimeChunk: "single",
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",

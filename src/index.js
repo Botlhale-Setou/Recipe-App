@@ -118,7 +118,7 @@ const displayModal = async (obj) => {
       addComment(obj.idMeal, user, text);
       // successMsg(message);
       setTimeout(() => {
-        showComment(baseLink, obj.idMeal);
+        showComment(obj.idMeal);
         // showCount(baseLink, cardData.idMeal);
       }, 1000);
     } else {
