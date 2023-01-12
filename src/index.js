@@ -117,7 +117,9 @@ const displayModal = async (obj) => {
   postCommentButton.addEventListener("click", (e) => {
     e.preventDefault();
     if (user.value !== "" && text.value !== "") {
-      addComment(obj.idMeal, user, text);
+      let idOfObj = postCommentButton.id.split("-")[1];
+      console.log(idOfObj);
+      addComment(idOfObj, user, text);
       setTimeout(() => {
         showComment(obj.idMeal);
       }, 1000);
