@@ -97,7 +97,7 @@ const displayModal = async (obj) => {
 	      <h4 id="addCommTitle">Add comment</h4>
 	      <input id="nameInput" type="text" placeholder="Your name" aria-placeholder="Your name">
 	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
-	      <button id="commentButton" type="button">Comment</button>`;
+	      <button id="commentButton-${obj.idMeal}" type="button">Comment</button>`;
 
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
@@ -107,7 +107,7 @@ const displayModal = async (obj) => {
   }, 1000);
 
   // Load Postcomment button behaviour
-  const submitBtn = document.querySelector("#commentButton");
+  const submitBtn = document.querySelector(`#commentButton-${obj.idMeal}`);
 
   const user = document.querySelector("#nameInput");
   const text = document.querySelector("#cp-commentTA");
