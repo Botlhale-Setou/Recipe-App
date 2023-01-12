@@ -46,7 +46,7 @@ const getMealList = async (url, term) => {
           id="like-${item.idMeal}"
           style="cursor: pointer"
         ></i>
-        <span class="like-count" id="like-count${item.idMeal}">12</span>
+        <span class="like-count" id="like-count${item.idMeal}"></span>
         </div>
           <a href="#" class="recipe-btn" id =" recipebtn-">Comments</a>
           </div>
