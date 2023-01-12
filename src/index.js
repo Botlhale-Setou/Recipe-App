@@ -39,7 +39,7 @@ const getMealList = async (url, term) => {
           </div>
           <div class="meal-name">
           <h3>${item.strMeal}</h3>
-          <a href="#" class="recipe-btn">Comments</a>
+          <a href="#" class="recipe-btn" id =" recipebtn-">Comments</a>
           </div>
           </div>`;
     });
@@ -107,12 +107,14 @@ const displayModal = async (obj) => {
   }, 1000);
 
   // Load Postcomment button behaviour
-  const submitBtn = document.querySelector(`#commentButton-${obj.idMeal}`);
+  const postCommentButton = document.querySelector(
+    `#commentButton-${obj.idMeal}`
+  );
 
   const user = document.querySelector("#nameInput");
   const text = document.querySelector("#cp-commentTA");
 
-  submitBtn.addEventListener("click", (e) => {
+  postCommentButton.addEventListener("click", (e) => {
     e.preventDefault();
     if (user.value !== "" && text.value !== "") {
       addComment(obj.idMeal, user, text);
