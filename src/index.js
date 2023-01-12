@@ -237,17 +237,16 @@ const likeCount = async (id) => {
   const likeEntries = await fetch(
     `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes`
   );
-  const mealsItem = document.querySelectorAll(".meal-item");
+  // const mealsItem = document.querySelectorAll(".meal-item");
 
   await likeEntries.json().then((likeEntry) => {
-    mealsItem.forEach((meal) => {
-      const likeCounter = document.getElementById(`like-count${id}`);
-      likeEntry.forEach((like) => {
-        if (meal.dataset.id === like.item_id) {
-          console.log(like.item_id, like.likes);
-          likeCounter.innerHTML = `${like.likes}`;
-        }
-      });
+    const likeCounter = document.getElementById(`like-count${id}`);
+    likeEntry.forEach((like) => {
+      if (id === like.item_id) {
+        console.log(id, like.likes);
+
+        likeCounter.innerHTML = `${like.likes}`;
+      }
     });
   });
 };
