@@ -40,6 +40,8 @@
 // module.exports = refreshComments;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const countComments = require('./countComments.js');
+
 const addComment = async (itemId, usr, txt) => {
   await fetch(
     `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments/`,
@@ -69,7 +71,7 @@ const showComment = async (itemId) => {
   let commDB = Array.from(data);
   console.log(commDB);
   if (commDB.length === 0) {
-    commentShow.innerHTML = "be first to post comment";
+    commentShow.innerHTML = "be the first to post comment";
     console.log("no comments");
   } else {
     //   commentShow.innerHTML += `<p>${commentObj.creation_date} ${commentObj.username}: ${commentObj.comment}</p>`;
@@ -78,6 +80,9 @@ const showComment = async (itemId) => {
 };
 
 const renderComment = (arr) => {
+  let display = document.querySelector('.displayCommCount');
+  display.innerHTML = `(${countComments(arr)})`;
+
   let comments = "";
   if (arr.length !== undefined) {
     arr.forEach((obj) => {

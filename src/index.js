@@ -44,7 +44,7 @@ const getMealList = async (url, term) => {
           <i
           class="fa-solid fa-heart"
           id="like-${item.idMeal}"
-          style="cursor: pointer"
+          style="cursor: pointer; color: red;"
         ></i>
         <span class="like-count" id="like-count${item.idMeal}"></span>
         </div>
@@ -103,7 +103,7 @@ const displayModal = async (obj) => {
         <div class="commentsDisplay">
 	      </div>
 
-	      <h4 id="addCommTitle">Add comment</h4>
+	      <h4 id="addCommTitle">Add comment<p class="displayCommCount"></p></h4>
 	      <input id="nameInput" type="text" placeholder="Your name" aria-placeholder="Your name">
 	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
 	      <button id="commentButton-${obj.idMeal}" type="button">Post Comment</button>`;
