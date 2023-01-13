@@ -53,30 +53,18 @@ catBeef.addEventListener("click", (e) => {
   getMealList(catUrl, "beef");
   countMeals(catUrl, "Beef", catBeef.childNodes[1]);
   catBeef.childNodes[1].style.visibility = "visible";
-  // catSeafood.childNodes[1].innerText = "";
-  // catSeafood.childNodes[1].style.visibility = "hidden";
-  // catDessert.childNodes[1].innerText = "";
-  // catDessert.childNodes[1].style.visibility = "hidden";
 });
 
 catSeafood.addEventListener("click", (e) => {
   getMealList(catUrl, "Seafood");
   countMeals(catUrl, "Seafood", catSeafood.childNodes[1]);
   catSeafood.childNodes[1].style.visibility = "visible";
-  // catBeef.childNodes[1].innerText = "";
-  // catBeef.childNodes[1].style.visibility = "hidden";
-  // catDessert.childNodes[1].innerText = "";
-  // catDessert.childNodes[1].style.visibility = "hidden";
 });
 
 catDessert.addEventListener("click", (e) => {
   getMealList(catUrl, "Dessert");
   countMeals(catUrl, "Dessert", catDessert.childNodes[1]);
   catDessert.childNodes[1].style.visibility = "visible";
-  // catBeef.childNodes[1].innerText = "";
-  // catBeef.childNodes[1].style.visibility = "hidden";
-  // catSeafood.childNodes[1].innerText = "";
-  // catSeafood.childNodes[1].style.visibility = "hidden";
 });
 
 mealList.addEventListener("click", (e) => {
@@ -94,6 +82,5 @@ mealList.addEventListener("click", (e) => {
     setTimeout(() => {
       likeCount(likeid);
     }, 500);
-    // likeCount(likeid);
   }
 });
