@@ -2,7 +2,7 @@ const countComments = require("./countComments.js");
 
 const addComment = async (itemId, usr, txt) => {
   await fetch(
-    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments/`,
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/vne0sKL7BtYmXIhUvGK9/comments/`,
     {
       method: "POST",
       headers: {
@@ -21,7 +21,7 @@ const addComment = async (itemId, usr, txt) => {
 
 const showComment = async (itemId) => {
   const response = await fetch(
-    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments?item_id=${itemId}`
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/vne0sKL7BtYmXIhUvGK9/comments?item_id=${itemId}`
   );
   const commentShow = document.querySelector(`.commentsDisplay`);
   const data = await response.json();
