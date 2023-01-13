@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="./image.png" alt="logo" width="140"  height="auto" />
+  <img src="./image.png" alt="logo" width="440"  height="auto" />
   <br/>
 
   <h3><b>Recipe-App</b></h3>
