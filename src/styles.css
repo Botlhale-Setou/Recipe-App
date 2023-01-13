@@ -86,18 +86,16 @@ body {
 }
 
 .nav-link {
-  text-decoration: bold;
+  text-shadow: 1px 1px orange;
+  color: black;
+  font-weight: 500;
+  text-decoration: solid;
 }
 
 .main-menu,
 .nav-item .nav-link {
   padding: 10px;
   text-decoration: none;
-}
-.nav-link {
-  text-shadow: 1px 1px orange;
-  color: black;
-  font-weight: 500;
 }
 
 .meal-count {
