@@ -1,10 +1,10 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="https://static.vecteezy.com/system/resources/previews/009/315/016/original/winner-trophy-in-flat-style-free-png.png" alt="logo" width="140"  height="auto" />
+  <img src="./image.png" alt="logo" width="140"  height="auto" />
   <br/>
 
-  <h3><b>Leaderboard</b></h3>
+  <h3><b>Recipe-App</b></h3>
 
 </div>
 
