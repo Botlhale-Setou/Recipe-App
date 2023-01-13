@@ -21,6 +21,11 @@ const ingUrl = `${foodBase}filter.php?i=`;
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#yourResult").style.display = "none";
   document.querySelector(".initialMessage").style.display = "block";
+
+  //count meal
+  countMeals(catUrl, "Beef", catBeef.childNodes[1]);
+  countMeals(catUrl, "Dessert", catDessert.childNodes[1]);
+  countMeals(catUrl, "Seafood", catSeafood.childNodes[1]);
 });
 
 // search button
