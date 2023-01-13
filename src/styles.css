@@ -245,6 +245,9 @@ body {
 
 .meal-details-content {
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .recipe-close-btn {
