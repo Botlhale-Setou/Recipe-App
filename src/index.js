@@ -22,6 +22,15 @@ const ingUrl = `${foodBase}filter.php?i=`;
 const appId = "No6xjeOV6L9eg8TkvJgU";
 const baseLink = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU`;
 
+// window.onload = () => {
+//   document.querySelector(".title").style.display = "none";
+//   document.querySelector(".initialMessage").style.display = "block";
+// };
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#yourResult").style.display = "none";
+  document.querySelector(".initialMessage").style.display = "block";
+});
+
 const getMealList = async (url, term) => {
   // let searchInputText = document.getElementById("search-input").value.trim();
   // let response = await fetch(
@@ -64,6 +73,9 @@ const getMealList = async (url, term) => {
     let id = meal.dataset.id;
     likeCount(id);
   });
+
+  document.querySelector("#yourResult").style.display = "block";
+  document.querySelector(".initialMessage").style.display = "none";
 };
 
 // search button
