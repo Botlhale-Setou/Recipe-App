@@ -1,5 +1,5 @@
-const countComments = (arr) => {
-	return arr.length;
+const countComments = (arrComm) => {
+	return arrComm.length;
 };
 
 module.exports = countComments;
