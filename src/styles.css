@@ -322,3 +322,29 @@ body {
 .like-count {
   color: red;
 }
+
+#nameInput {
+  width: 250px;
+  height: 30px;
+  padding-left: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+#cp-commentTA {
+  width: 250px;
+  padding-left: 15px;
+  padding-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.cmtbtn {
+  width: 250px;
+  height: 30px;
+  padding-left: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background-color: darkgreen;
+  color: white;
+}
