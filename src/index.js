@@ -1,5 +1,11 @@
 import "./styles.css";
 
+const refreshComments = require("./modules/manageComments.js");
+const postComment = require("./modules/manageComments.js");
+const renderComment = require("./modules/manageComments.js");
+const showComment = require("./modules/manageComments.js");
+const addComment = require("./modules/manageComments.js");
+
 const searchBtn = document.querySelector(".search-btn");
 const mealList = document.getElementById("meal");
 const mealDetailsContent = document.querySelector(".meal-details-content");
@@ -13,6 +19,17 @@ const foodBase = "https://www.themealdb.com/api/json/v1/1/";
 const searchUrl = `${foodBase}search.php?s=`;
 const catUrl = `${foodBase}filter.php?c=`;
 const ingUrl = `${foodBase}filter.php?i=`;
+const appId = "No6xjeOV6L9eg8TkvJgU";
+const baseLink = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU`;
+
+// window.onload = () => {
+//   document.querySelector(".title").style.display = "none";
+//   document.querySelector(".initialMessage").style.display = "block";
+// };
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#yourResult").style.display = "none";
+  document.querySelector(".initialMessage").style.display = "block";
+});
 
 const getMealList = async (url, term) => {
   // let searchInputText = document.getElementById("search-input").value.trim();
@@ -31,7 +48,16 @@ const getMealList = async (url, term) => {
           </div>
           <div class="meal-name">
           <h3>${item.strMeal}</h3>
-          <a href="#" class="recipe-btn">Comments</a>
+          <div class="for-heart">
+
+          <i
+          class="fa-solid fa-heart"
+          id="like-${item.idMeal}"
+          style="cursor: pointer; color: red;"
+        ></i>
+        <span class="like-count" id="like-count${item.idMeal}"></span>
+        </div>
+          <a href="#" class="recipe-btn" id =" recipebtn-">Comments</a>
           </div>
           </div>`;
     });
@@ -41,6 +67,15 @@ const getMealList = async (url, term) => {
   }
   mealList.innerHTML = html;
   mealList.classList.add("notFound");
+
+  let mealItems = document.querySelectorAll(".meal-item");
+  mealItems.forEach((meal) => {
+    let id = meal.dataset.id;
+    likeCount(id);
+  });
+
+  document.querySelector("#yourResult").style.display = "block";
+  document.querySelector(".initialMessage").style.display = "none";
 };
 
 // search button
@@ -63,12 +98,12 @@ mealList.addEventListener("click", async (e) => {
   }
 });
 
-const displayModal = (obj) => {
+const displayModal = async (obj) => {
   console.log(obj);
   obj = obj[0];
   let html = "";
 
-  html = `  <h2 class="recipe-title">${obj.strMeal}</h2>
+  html = `<h2 class="recipe-title">${obj.strMeal}</h2>
         <p class="recipe-category">${obj.strCategory}</p>
         <div class="recipe-instruct">
           <h3>Instruction</h3>
@@ -81,10 +116,67 @@ const displayModal = (obj) => {
         </div>
         <div class="recipe-link">
           <a href="${obj.strYoutube}" target="_blank">Watch video</a>
-        </div>`;
+        </div>
+
+        <div class="commentsDisplay">
+	      </div>
+
+	      <h4 id="addCommTitle">Add comment<p class="displayCommCount"></p></h4>
+	      <input id="nameInput" type="text" placeholder="Your name" aria-placeholder="Your name">
+	      <textarea name="commentTA" id="cp-commentTA" cols="30" rows="10" placeholder="Your comment" aria-placeholder="Your comment"></textarea>
+	      <button id="commentButton-${obj.idMeal}" type="button">Post Comment</button>`;
 
   mealDetailsContent.innerHTML = html;
   modal.style.display = "block";
+
+  setTimeout(() => {
+    showComment(obj.idMeal);
+  }, 1000);
+
+  // Load Postcomment button behaviour
+  const postCommentButton = document.querySelector(
+    `#commentButton-${obj.idMeal}`
+  );
+
+  const user = document.querySelector("#nameInput");
+  const text = document.querySelector("#cp-commentTA");
+
+  postCommentButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (user.value !== "" && text.value !== "") {
+      let idOfObj = postCommentButton.id.split("-")[1];
+      console.log(idOfObj);
+      addComment(idOfObj, user, text);
+
+      //Post API directly
+
+      fetch(
+        `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/comments/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            item_id: idOfObj,
+            username: user.value,
+            comment: text.value,
+          }),
+        }
+      );
+      user.value = "";
+      text.value = "";
+      console.log("inside add comment");
+
+      //end
+
+      setTimeout(() => {
+        showComment(obj.idMeal);
+      }, 1000);
+    } else {
+      console.log("error in submit");
+    }
+  });
 };
 
 //closing modal
@@ -141,4 +233,50 @@ catDessert.addEventListener("click", (e) => {
   catBeef.childNodes[1].style.visibility = "hidden";
   catSeafood.childNodes[1].innerText = "";
   catSeafood.childNodes[1].style.visibility = "hidden";
+});
+
+// like functionality
+
+const itemLike = async (itemId) => {
+  await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        item_id: itemId,
+      }),
+    }
+  );
+};
+const likeCount = async (id) => {
+  const likeEntries = await fetch(
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes`
+  );
+  // const mealsItem = document.querySelectorAll(".meal-item");
+
+  await likeEntries.json().then((likeEntry) => {
+    const likeCounter = document.getElementById(`like-count${id}`);
+    likeEntry.forEach((like) => {
+      if (id === like.item_id) {
+        likeCounter.innerHTML = `${like.likes}`;
+      }
+    });
+  });
+};
+
+mealList.addEventListener("click", (e) => {
+  console.log(e.target);
+
+  if (e.target.classList.contains("fa-heart")) {
+    let likeid = e.target.id.split("-")[1];
+    itemLike(likeid);
+    setTimeout(() => {
+      likeCount(likeid);
+    }, 1000);
+
+    console.log(likeid);
+  }
 });
