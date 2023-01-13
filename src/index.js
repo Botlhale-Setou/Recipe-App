@@ -58,6 +58,12 @@ const getMealList = async (url, term) => {
   }
   mealList.innerHTML = html;
   mealList.classList.add("notFound");
+
+  let mealItems = document.querySelectorAll(".meal-item");
+  mealItems.forEach((meal) => {
+    let id = meal.dataset.id;
+    likeCount(id);
+  });
 };
 
 // search button
@@ -243,8 +249,6 @@ const likeCount = async (id) => {
     const likeCounter = document.getElementById(`like-count${id}`);
     likeEntry.forEach((like) => {
       if (id === like.item_id) {
-        console.log(id, like.likes);
-
         likeCounter.innerHTML = `${like.likes}`;
       }
     });
