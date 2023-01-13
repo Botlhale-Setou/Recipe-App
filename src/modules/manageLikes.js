@@ -1,6 +1,6 @@
 const itemLike = async (itemId) => {
   await fetch(
-    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes/`,
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/vne0sKL7BtYmXIhUvGK9/likes/`,
     {
       method: "POST",
       headers: {
@@ -14,7 +14,7 @@ const itemLike = async (itemId) => {
 };
 const likeCount = async (id) => {
   const likeEntries = await fetch(
-    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/No6xjeOV6L9eg8TkvJgU/likes`
+    `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/vne0sKL7BtYmXIhUvGK9/likes`
   );
 
   await likeEntries.json().then((likeEntry) => {
