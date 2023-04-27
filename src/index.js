@@ -21,52 +21,12 @@ const ingUrl = `${foodBase}filter.php?i=`;
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#yourResult").style.display = "none";
   document.querySelector(".initialMessage").style.display = "block";
+
+  //count meal
+  countMeals(catUrl, "Beef", catBeef.childNodes[1]);
+  countMeals(catUrl, "Dessert", catDessert.childNodes[1]);
+  countMeals(catUrl, "Seafood", catSeafood.childNodes[1]);
 });
-
-//   // let response = await fetch(
-//   //   `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`
-//   // );
-//   let response = await fetch(`${url}${term}`);
-//   let data = await response.json();
-//   console.log(data);
-//   let html = "";
-//   if (data.meals) {
-//     data.meals.forEach((item) => {
-//       html += ` <div class="meal-item" data-id=${item.idMeal}>
-//           <div class="meal-img">
-//           <img src=${item.strMealThumb} alt="food" />
-//           </div>
-//           <div class="meal-name">
-//           <h3>${item.strMeal}</h3>
-//           <div class="for-heart">
-
-//           <i
-//           class="fa-solid fa-heart"
-//           id="like-${item.idMeal}"
-//           style="cursor: pointer; color: red;"
-//         ></i>
-//         <span class="like-count" id="like-count${item.idMeal}"></span>
-//         </div>
-//           <a href="#" class="recipe-btn" id =" recipebtn-">Comments</a>
-//           </div>
-//           </div>`;
-//     });
-//   } else {
-//     html = "sorry, we have nothing to show";
-//     mealList.classList.remove("notFound");
-//   }
-//   mealList.innerHTML = html;
-//   mealList.classList.add("notFound");
-
-//   let mealItems = document.querySelectorAll(".meal-item");
-//   mealItems.forEach((meal) => {
-//     let id = meal.dataset.id;
-//     likeCount(id);
-//   });
-
-//   document.querySelector("#yourResult").style.display = "block";
-//   document.querySelector(".initialMessage").style.display = "none";
-// };
 
 // search button
 searchBtn.addEventListener("click", (e) => {
@@ -98,30 +58,18 @@ catBeef.addEventListener("click", (e) => {
   getMealList(catUrl, "beef");
   countMeals(catUrl, "Beef", catBeef.childNodes[1]);
   catBeef.childNodes[1].style.visibility = "visible";
-  catSeafood.childNodes[1].innerText = "";
-  catSeafood.childNodes[1].style.visibility = "hidden";
-  catDessert.childNodes[1].innerText = "";
-  catDessert.childNodes[1].style.visibility = "hidden";
 });
 
 catSeafood.addEventListener("click", (e) => {
   getMealList(catUrl, "Seafood");
   countMeals(catUrl, "Seafood", catSeafood.childNodes[1]);
   catSeafood.childNodes[1].style.visibility = "visible";
-  catBeef.childNodes[1].innerText = "";
-  catBeef.childNodes[1].style.visibility = "hidden";
-  catDessert.childNodes[1].innerText = "";
-  catDessert.childNodes[1].style.visibility = "hidden";
 });
 
 catDessert.addEventListener("click", (e) => {
   getMealList(catUrl, "Dessert");
   countMeals(catUrl, "Dessert", catDessert.childNodes[1]);
   catDessert.childNodes[1].style.visibility = "visible";
-  catBeef.childNodes[1].innerText = "";
-  catBeef.childNodes[1].style.visibility = "hidden";
-  catSeafood.childNodes[1].innerText = "";
-  catSeafood.childNodes[1].style.visibility = "hidden";
 });
 
 mealList.addEventListener("click", async (e) => {
@@ -129,7 +77,15 @@ mealList.addEventListener("click", async (e) => {
 
   if (e.target.classList.contains("fa-heart")) {
     let likeid = e.target.id.split("-")[1];
-    await itemLike(likeid);
-    await likeCount(likeid);
+    itemLike(likeid);
+
+    let likenumber = document.querySelector(`#like-count${likeid}`).textContent;
+    document.querySelector(`#like-count${likeid}`).innerHTML = `${
+      +likenumber + 1
+    }`;
+
+    setTimeout(() => {
+      likeCount(likeid);
+    }, 500);
   }
 });
