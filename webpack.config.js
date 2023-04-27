@@ -5,6 +5,7 @@ module.exports = {
   entry: "./src/index.js",
   devServer: {
     static: "./dist",
+    allowedHosts: "all"
   },
   output: {
     filename: "main.js",

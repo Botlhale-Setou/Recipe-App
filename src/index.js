@@ -124,14 +124,12 @@ catDessert.addEventListener("click", (e) => {
   catSeafood.childNodes[1].style.visibility = "hidden";
 });
 
-mealList.addEventListener("click", (e) => {
+mealList.addEventListener("click", async (e) => {
   e.preventDefault();
 
   if (e.target.classList.contains("fa-heart")) {
     let likeid = e.target.id.split("-")[1];
-    itemLike(likeid);
-    setTimeout(() => {
-      likeCount(likeid);
-    }, 1000);
+    await itemLike(likeid);
+    await likeCount(likeid);
   }
 });
