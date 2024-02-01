@@ -50,7 +50,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://yourdeployedapplicationlink.com) currently unavailable.
+- Visit [this link](https://recipe-app-0tvs.onrender.com/) for live demo.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
